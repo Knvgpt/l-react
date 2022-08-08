@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Navbar from "./components/Navbar";
+import Card from "./components/Card";
+import data from "./data";
+import "./style.css";
+import { useEffect } from "react";
+import axios from "axios";
 
-function App() {
+export default function App() {
+  const cards = data.map((item) => {
+    return <Card item={item} />;
+  });
+
+  const fetchData = async () => {
+    const results = await axios.get("/.netlify/functions/print");
+    console.log(results);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Navbar />
+      <section className="cards-list">{cards}</section>
     </div>
   );
 }
-
-export default App;
