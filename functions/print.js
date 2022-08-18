@@ -8,6 +8,6 @@ exports.handler = async function (event, context) {
   fetchData();
   return {
     statusCode: 200,
-    body: JSON.stringify({ message: "yoooo" }),
+    body: JSON.stringify({ message: `${res.data.results[0].name.first}` }),
   };
 };
